@@ -1,3 +1,4 @@
-import path from "path";
+import "./server";
 
-console.log("working");
+//loading environment variables
+require("dotenv").config();
