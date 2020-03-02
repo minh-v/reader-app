@@ -1,8 +1,13 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  type Name {
+    first: String
+    last: String
+  }
+
   type Query {
-    name: String!
+    name: [Name]
   }
 `;
 
