@@ -5,6 +5,7 @@ export const mangaSchema = new mongoose.Schema({
   categories: [String],
   hits: Number,
   image: String,
+  lastUpdated: Number,
   status: Number,
   title: String
 });
