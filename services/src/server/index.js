@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 
 import resolvers from "../graphql/resolvers";
-import typeDefs from "../graphql/resolvers/typeDefs";
+import typeDefs from "../graphql/typeDefs";
 
 const app = express();
 const port = process.env.PORT || 3000;

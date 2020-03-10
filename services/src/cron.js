@@ -38,20 +38,12 @@ const transformMangaEden = manga =>
       })
     );
 
-/*
-axiosMEAPI.interceptors.response.use(res => {
-  if (res.config.url !== process.env.MANGAEDEN_URL) {
-    res.data = res.data.manga.map();
-  }
-  return res;
-});
-*/
-
+//seed our database
 const seed = async () => {
   const res = await axiosMEAPI.get();
   const mangas = transformMangaEden(res.data.manga);
 
-  console.log("@@ length", mangas.length);
+  //console.log("@@ length", mangas.length);
 
   await Manga.insertMany(mangas, function(error, docs) {
     console.error(error);

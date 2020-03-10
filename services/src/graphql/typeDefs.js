@@ -1,13 +1,14 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
-  type Name {
-    first: String
-    last: String
+  type Manga {
+    id: ID!
+    image: String
+    title: String!
   }
 
   type Query {
-    name: [Name]
+    mangas: [Manga!]!
   }
 `;
 
