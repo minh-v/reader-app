@@ -19,6 +19,4 @@ app.get("/", (req, res) => {
   res.status(404).json({ status: "xd" });
 });
 
-app.listen(port, "0.0.0.0", () =>
-  console.log(`Services listening on port ${port}`)
-);
+app.listen(port, "0.0.0.0", () => console.log(`Services listening on port ${port}`));
