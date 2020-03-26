@@ -1,7 +1,8 @@
 import { fetchMangaInfo } from "../../mangaSources/mangaEden";
 
-// remapping id to _id with a type resolver
+// remapping id to _id with a type resolver / called _id in mongo
 // passing in the manga object and returning mangaObj._id
+// mapping lastUpdated from milliseconds to seconds
 const Manga = {
   id: mangaObj => mangaObj._id,
   info: async mangaObj => {

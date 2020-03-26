@@ -1,10 +1,11 @@
+// axios interactions with mangaeden api here
 import globalAxios from "axios";
 
 export const axios = globalAxios.create({
   baseURL: process.env.MANGAEDEN_URL
 });
 
-//renaming keys
+//renaming (mapping) keys
 const transformChapters = chapters =>
   chapters.map(([number, lastUpdated, title, id]) => ({
     id,
