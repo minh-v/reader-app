@@ -5,7 +5,8 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 // 2
 const httpLink = createHttpLink({
-  uri: process.env.SERVICES_URI + "/graphql"
+  //uri: process.env.SERVICES_URI + "/graphql"
+  uri: "http://localhost:3000/graphql"
 });
 
 // 3

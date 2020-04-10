@@ -4,8 +4,9 @@ import ReactDOM from "react-dom";
 import cat from "./icon/cat-icon.png";
 
 import graphqlClient from "#src/api/graphql";
+import Home from "#src/pages/Home";
 
-import Search from "#src/materialui/search";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./global.less";
 /* if ("serviceWorker" in navigator) {
@@ -15,17 +16,18 @@ import "./global.less";
 const App = () => {
   return (
     <div className="main-container">
-      <div className="main-search-container">
-        <img src={cat} />
-        <Search />
-      </div>
+      <Switch>
+        <Route component={Home} path="/" />
+      </Switch>
     </div>
   );
 };
 
 ReactDOM.render(
   <ApolloProvider client={graphqlClient}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ApolloProvider>,
   document.getElementById("root")
 );

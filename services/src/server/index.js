@@ -1,10 +1,12 @@
 import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 import express from "express";
 
 import resolvers from "../graphql/resolvers";
 import typeDefs from "../graphql/typeDefs";
 
 const app = express();
+app.use(cors()); //allows cross-origin, other domains to ping service
 const port = process.env.PORT || 3000;
 
 const apolloServer = new ApolloServer({

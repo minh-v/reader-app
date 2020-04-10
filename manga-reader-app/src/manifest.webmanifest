@@ -23,17 +23,17 @@
       "sizes": "96x96"
     },
     {
-      "src": "https://placekitten.com/14/x1ng",
+      "src": "https://placekitten.com/144/144",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "https://placekitten.com/19/x1ng",
+      "src": "https://placekitten.com/192/192",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https://placekitten.com/51/x5ng",
+      "src": "https://placekitten.com/512/512",
       "type": "image/png",
       "sizes": "512x512"
     }
