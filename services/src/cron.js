@@ -12,9 +12,11 @@ import { fetchAllMangas } from "./mangaSources/mangaEden";
 //seed our database
 const seed = async () => {
   const res = await fetchAllMangas("en");
-  //const mangas = transformMangaEden(res.data.manga);
+  const mangas = res.data.manga;
 
-  await Manga.insertMany(res, function(error, docs) {
+  console.log(mangas.length);
+
+  await Manga.insertMany(mangas, function (error, docs) {
     console.error(error);
   });
 

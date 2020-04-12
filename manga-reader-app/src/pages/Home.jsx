@@ -44,10 +44,14 @@ const Home = () => {
 
   const handleChangeThrottled = _.throttle(handleChange, THROTTLE_TIME); */
 
+  let options = [];
+  console.log(data);
+  if (data) {
+    options = data.mangas.slice();
+  }
   return (
     <div className="main-search-container">
-      <Search onInputChange={(searchQuery) => handleChange(searchQuery.target.value)} />
-      {/* <Search onInputChange={(searchQuery) => handleChangeThrottled(searchQuery.target.value)} /> */}
+      <Search onInputChange={(searchQuery) => handleChange(searchQuery.target.value)} data={options} />
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );

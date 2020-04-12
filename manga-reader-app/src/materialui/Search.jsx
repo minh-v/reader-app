@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = ({ onInputChange }) => {
+const Search = ({ onInputChange, data }) => {
   const classes = useStyles();
   return (
     <div className="search-wrapper">
@@ -23,8 +23,8 @@ const Search = ({ onInputChange }) => {
         id="search-input"
         classes={classes}
         onInputChange={onInputChange}
-        options={top100Films}
-        getOptionLabel={(top100Films) => top100Films.title}
+        options={data}
+        getOptionLabel={(data) => data.title}
         selectOnFocus={true}
         style={{ width: 500 }}
         renderInput={(params) => <TextField {...params} label="Search Manga" variant="outlined" />}
