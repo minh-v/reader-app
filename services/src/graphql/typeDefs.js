@@ -3,6 +3,12 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   scalar Date
 
+  enum MangaStatus {
+    COMPLETED
+    ONGOING
+    SUSPENDED
+  }
+
   type Chapter {
     id: ID!
     lastUpdated: Date!
@@ -15,6 +21,7 @@ const typeDefs = gql`
     image: String
     info: MangaInfo!
     lastUpdated: Date!
+    status: MangaStatus!
     title: String!
   }
 

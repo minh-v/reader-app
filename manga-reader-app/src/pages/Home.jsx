@@ -9,6 +9,7 @@ const GETMANGAS = gql`
   query getMangas($searchTitle: String!) {
     mangas(searchTitle: $searchTitle) {
       id
+      status
       title
     }
   }
@@ -31,7 +32,6 @@ const Home = () => {
     _.throttle((searchQuery) => {
       console.log(searchQuery);
       setSearchQuery(searchQuery);
-      console.log(searchQuery);
     }, THROTTLE_TIME),
     [setSearchQuery]
   );
@@ -44,15 +44,20 @@ const Home = () => {
 
   const handleChangeThrottled = _.throttle(handleChange, THROTTLE_TIME); */
 
+  const onSelect = (_event, v) => {
+    const test = v;
+    console.log(test);
+  };
+
+  //options needs to have a default value
   let options = [];
-  console.log(data);
   if (data) {
     options = data.mangas.slice();
   }
   return (
     <div className="main-search-container">
-      <Search onInputChange={(searchQuery) => handleChange(searchQuery.target.value)} data={options} />
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      {/* <Search onInputChange={(searchQuery) => handleChange(searchQuery.target.value)} data={options} /> */}
+      <Search onInputChange={(_event, searchQuery) => handleChange(searchQuery)} data={options} onSelect={onSelect} />
     </div>
   );
 };

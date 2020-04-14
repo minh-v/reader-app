@@ -1,7 +1,6 @@
 import { ApolloProvider } from "react-apollo";
 import React from "react";
 import ReactDOM from "react-dom";
-import cat from "./icon/cat-icon.png";
 
 import graphqlClient from "#src/api/graphql";
 import Home from "#src/pages/Home";
