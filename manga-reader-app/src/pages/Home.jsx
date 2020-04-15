@@ -20,6 +20,13 @@ const GETMANGAS = gql`
 const THROTTLE_TIME = 1000;
 const MIN_QUERY_LENGTH = 3;
 
+//replace all non alphanumerical characters with "-", and replace all "--"" with "-""
+const sanitiseTitle = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-{2,}/g, "-");
+
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { loading, error, data } = useQuery(GETMANGAS, {
@@ -49,8 +56,9 @@ const Home = () => {
   const manga = useHistory();
   const onSelect = (_event, v) => {
     const test = v;
-    console.log(test.title);
-    manga.push("/test-123");
+    //console.log(test.title);
+    test.title = sanitiseTitle(test.title);
+    manga.push(`${test.id}-${test.title}`);
   };
 
   //options needs to have a default value
