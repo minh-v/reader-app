@@ -4,6 +4,8 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import graphqlClient from "#src/api/graphql";
 import _ from "lodash";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const GETMANGAS = gql`
   query getMangas($searchTitle: String!) {
@@ -28,7 +30,7 @@ const Home = () => {
   //throttle for quick typers,  if they type too fast, it will wait a certain amount of time
   //before sending back the autocomplete suggestions
 
-  const handleChange = useCallback(
+  const handleInputChange = useCallback(
     _.throttle((searchQuery) => {
       console.log(searchQuery);
       setSearchQuery(searchQuery);
@@ -44,9 +46,11 @@ const Home = () => {
 
   const handleChangeThrottled = _.throttle(handleChange, THROTTLE_TIME); */
 
+  const manga = useHistory();
   const onSelect = (_event, v) => {
     const test = v;
-    console.log(test);
+    console.log(test.title);
+    manga.push("/test-123");
   };
 
   //options needs to have a default value
@@ -56,8 +60,11 @@ const Home = () => {
   }
   return (
     <div className="main-search-container">
-      {/* <Search onInputChange={(searchQuery) => handleChange(searchQuery.target.value)} data={options} /> */}
-      <Search onInputChange={(_event, searchQuery) => handleChange(searchQuery)} data={options} onSelect={onSelect} />
+      <Search
+        onInputChange={(_event, searchQuery) => handleInputChange(searchQuery)}
+        data={options}
+        onSelect={onSelect}
+      />
     </div>
   );
 };
