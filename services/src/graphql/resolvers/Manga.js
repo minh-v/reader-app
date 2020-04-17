@@ -4,16 +4,17 @@ import { fetchMangaInfo } from "../../mangaSources/mangaEden";
 // passing in the manga object and returning mangaObj._id
 // mapping lastUpdated from milliseconds to seconds
 const Manga = {
-  id: mangaObj => mangaObj._id,
-  info: async mangaObj => {
+  id: (mangaObj) => mangaObj._id,
+  info: async (mangaObj) => {
     const res = await fetchMangaInfo({ mangaId: mangaObj.id });
 
     return {
       chapters: res.data.chapters,
-      id: mangaObj.id
+      description: res.data.description,
+      id: mangaObj.id,
     };
   },
-  lastUpdated: mangaObj => new Date(mangaObj.lastUpdated * 1000)
+  lastUpdated: (mangaObj) => new Date(mangaObj.lastUpdated * 1000),
 };
 
 export default Manga;

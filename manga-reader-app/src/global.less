@@ -33,3 +33,18 @@ body {
     margin-left: auto;
   }
 }
+
+.manga-details {
+  display: flex;
+  flex-flow: row nowrap;
+  & > &-image {
+    padding-top: 20px;
+    max-width: 10rem;
+    max-height: 15rem;
+  }
+  & > &-description {
+    margin-right: auto;
+    padding-left: 10px;
+    max-width: 500px;
+  }
+}
