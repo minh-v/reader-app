@@ -7,10 +7,10 @@ export const axios = globalAxios.create({
 
 //renaming (mapping) keys
 const transformChapters = (chapters) =>
-  chapters.map(([number, lastUpdated, title, id]) => ({
+  chapters.map(([index, lastUpdated, title, id]) => ({
     id,
     lastUpdated,
-    number,
+    index,
     title,
   }));
 

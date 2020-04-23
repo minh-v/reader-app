@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import graphqlClient from "#src/api/graphql";
 import Home from "#src/pages/Home";
 import Manga from "#src/pages/Manga";
+import MangaChapter from "#src/pages/MangaChapter";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <div className="main-container">
       <Switch>
+        <Route component={MangaChapter} path="/:mangaId-:mangaName/:chapterIndex" />
         <Route component={Manga} path="/:mangaId-:mangaName" />
         <Route component={Home} path="/" />
       </Switch>

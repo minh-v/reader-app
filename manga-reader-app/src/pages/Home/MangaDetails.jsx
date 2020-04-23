@@ -7,15 +7,15 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-//import List from "@material-ui/core/List";
-//import ListItemLink from "@material-ui/core/ListItem";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
 
 import html_entity_decode from "locutus/php/strings/html_entity_decode";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
+
+//import { makeStyles } from "@material-ui/core/styles";
 
 const query = gql`
   query($mangaId: ID!) {
@@ -24,7 +24,7 @@ const query = gql`
       info {
         chapters {
           id
-          number
+          index
           title
         }
         description
@@ -40,24 +40,50 @@ const query = gql`
   },
 })); */
 
+//replace all non alphanumerical characters with "-", and replace all "--"" with "-""
+const sanitizeTitle = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-{2,}/g, "-");
+
+//ugly global variables?
+var MANGA_TITLE = "";
+var MANGA_ID = "";
+
+const chapterListItem = ({ data, index, style }) => {
+  const history = useHistory();
+  return (
+    <ListItem
+      button
+      //links to id-title/chapterindex
+      onClick={() => history.push(`/${MANGA_ID}-${sanitizeTitle(MANGA_TITLE)}/${data[index].index}`)}
+      divider
+      key={data[index].id}
+      style={style}
+    >
+      <ListItemText primary={`#${data[index].index} - ${data[index].title}`} />
+    </ListItem>
+  );
+};
+
 const MangaDetails = ({ manga }) => {
   //const classes = useStyles();
+  MANGA_TITLE = manga.title;
+  MANGA_ID = manga.id;
   const { data, loading, error } = useQuery(query, {
     variables: { mangaId: manga.id },
   });
+
   if (loading)
     return (
       <div className="loading-wrapper">
         <CircularProgress />
       </div>
     );
+
   const mangaChapters = data.manga.info.chapters;
 
-  const chapterListItem = ({ index, style, data }) => (
-    <ListItem button divider key={data[index].id} style={style}>
-      <ListItemText primary={`#${data[index].number} - ${data[index].title}`} />
-    </ListItem>
-  );
   return (
     <div className="manga-details">
       <img
@@ -82,11 +108,6 @@ const MangaDetails = ({ manga }) => {
           itemCount={Object.keys(mangaChapters).length}
           itemData={mangaChapters}
         >
-          {/* {mangaChapters.map((chapter) => (
-            <ListItem button divider key={chapter.id} style={style}>
-              <ListItemText primary={chapter.title} />
-            </ListItem>
-          ))} */}
           {chapterListItem}
         </FixedSizeList>
       </div>

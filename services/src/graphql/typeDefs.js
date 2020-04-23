@@ -13,7 +13,7 @@ const typeDefs = gql`
     id: ID!
     images: [ChapterImage!]
     lastUpdated: Date!
-    number: String!
+    index: String!
     title: String
   }
 
