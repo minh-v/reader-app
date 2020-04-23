@@ -17,8 +17,7 @@ body {
   width: 100%;
 
   > .main-search-container {
-    vertical-align: top;
-    margin: 10vh auto 0;
+    margin: 20vh auto 0;
   }
 }
 
@@ -27,24 +26,35 @@ body {
   flex-flow: row nowrap;
   width: 100%;
   font-size: 1.1rem;
-
   & > &-status {
     font-size: 0.7rem;
     margin-left: auto;
   }
 }
 
+.loading-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  padding-top: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .manga-details {
   display: flex;
   flex-flow: row nowrap;
+  margin-top: 1rem;
   & > &-image {
-    padding-top: 20px;
+    flex: 0 auto;
+    padding-top: 1rem;
     max-width: 10rem;
     max-height: 15rem;
   }
   & > &-description {
+    //flex: 1;
     margin-right: auto;
-    padding-left: 10px;
-    max-width: 500px;
+    padding-left: 1rem;
+    max-width: 475px;
+    text-align: justify;
   }
 }

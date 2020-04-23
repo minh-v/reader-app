@@ -49,7 +49,7 @@ const Search = ({ onInputChange, data, onSelect }) => {
           </div>
         )}
         selectOnFocus={true}
-        style={{ width: 500 }}
+        style={{ width: 650 }}
         renderInput={(params) => <TextField {...params} label="Search Manga" variant="outlined" />}
       />
     </div>
