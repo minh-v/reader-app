@@ -13,6 +13,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FixedSizeList } from "react-window";
 
+import html_entity_decode from "locutus/php/strings/html_entity_decode";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const query = gql`
@@ -22,6 +24,7 @@ const query = gql`
       info {
         chapters {
           id
+          number
           title
         }
         description
@@ -52,7 +55,7 @@ const MangaDetails = ({ manga }) => {
 
   const chapterListItem = ({ index, style, data }) => (
     <ListItem button divider key={data[index].id} style={style}>
-      <ListItemText primary={data[index].title} />
+      <ListItemText primary={`#${data[index].number} - ${data[index].title}`} />
     </ListItem>
   );
   return (
@@ -60,13 +63,14 @@ const MangaDetails = ({ manga }) => {
       <img
         className="manga-details-image"
         src={manga.image}
+        referrerPolicy="no-referrer"
         //alt={manga.title}
       />
       <div className="manga-details-description">
         <Card>
           <CardContent>
             <Typography variant="body2" component="p">
-              {data.manga.info.description}
+              {html_entity_decode(data.manga.info.description)}
             </Typography>
           </CardContent>
         </Card>
