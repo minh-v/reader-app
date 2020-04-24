@@ -17,7 +17,6 @@ const transformChapters = (chapters) =>
 const imageURL = "https://cdn.mangaeden.com/mangasimg/";
 const transformImages = (images) =>
   images.map(([index, url, width, height]) => ({
-    index,
     url: imageURL + url,
     width,
     height,

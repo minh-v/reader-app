@@ -48,29 +48,36 @@ const sanitizeTitle = (title) =>
     .replace(/-{2,}/g, "-");
 
 //ugly global variables?
-var MANGA_TITLE = "";
-var MANGA_ID = "";
+/* var MANGA_TITLE = "";
+var MANGA_ID = ""; */
 
+//each item in chapter list
 const chapterListItem = ({ data, index, style }) => {
+  const { mangaChapters, mangaInfo } = data;
   const history = useHistory();
+  console.log(mangaChapters[index].id);
   return (
     <ListItem
       button
       //links to id-title/chapterindex
-      onClick={() => history.push(`/${MANGA_ID}-${sanitizeTitle(MANGA_TITLE)}/${data[index].index}`)}
+      onClick={() => history.push(`/${mangaInfo.id}-${sanitizeTitle(mangaInfo.title)}/${mangaChapters[index].id}`)}
       divider
-      key={data[index].id}
+      key={mangaChapters[index].id}
       style={style}
     >
-      <ListItemText primary={`#${data[index].index} - ${data[index].title}`} />
+      <ListItemText primary={`#${mangaChapters[index].index} - ${mangaChapters[index].title}`} />
     </ListItem>
   );
 };
 
 const MangaDetails = ({ manga }) => {
   //const classes = useStyles();
-  MANGA_TITLE = manga.title;
-  MANGA_ID = manga.id;
+  /*   MANGA_TITLE = manga.title;
+  MANGA_ID = manga.id; */
+  const mangaInfo = {
+    id: manga.id,
+    title: manga.title,
+  };
   const { data, loading, error } = useQuery(query, {
     variables: { mangaId: manga.id },
   });
@@ -106,7 +113,7 @@ const MangaDetails = ({ manga }) => {
           width={500}
           itemSize={46}
           itemCount={Object.keys(mangaChapters).length}
-          itemData={mangaChapters}
+          itemData={{ mangaChapters, mangaInfo }}
         >
           {chapterListItem}
         </FixedSizeList>

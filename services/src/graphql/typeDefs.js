@@ -39,6 +39,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    chapter(id: ID!): Chapter!
     manga(id: ID!): Manga!
     mangas(searchTitle: String): [Manga!]!
   }

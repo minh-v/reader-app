@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import graphqlClient from "#src/api/graphql";
+import Error from "#src/pages/Error";
 import Home from "#src/pages/Home";
 import Manga from "#src/pages/Manga";
 import MangaChapter from "#src/pages/MangaChapter";
@@ -18,9 +19,10 @@ const App = () => {
   return (
     <div className="main-container">
       <Switch>
-        <Route component={MangaChapter} path="/:mangaId-:mangaName/:chapterIndex" />
+        <Route component={MangaChapter} path="/:mangaId-:mangaName/:chapterId" />
         <Route component={Manga} path="/:mangaId-:mangaName" />
-        <Route component={Home} path="/" />
+        <Route component={Home} path="/" exact />
+        <Route component={Error} />
       </Switch>
     </div>
   );
