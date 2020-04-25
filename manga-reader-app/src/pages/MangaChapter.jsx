@@ -21,7 +21,7 @@ const query = gql`
 `;
 
 const navigationQuery = gql`
-  query($mangaId: ID!, $index: Int!) {
+  query($mangaId: ID!, $index: Float!) {
     previousChapter: chapterIndex(mangaId: $mangaId, index: $index) {
       id
     }
@@ -33,7 +33,7 @@ const navigationQuery = gql`
 `;
 
 const currentChapterQuery = gql`
-  query($mangaId: ID!, $index: Int!) {
+  query($mangaId: ID!, $index: Float!) {
     chapterIndex(id: $mangaId, index: $index) {
       images {
         url
@@ -48,9 +48,9 @@ const MangaChapter = ({ match }) => {
   /* const { data, loading, error } = useQuery(query, {
     variables: { chapterId: match.params.chapterId },
   }); */
-
+  console.log(parseFloat(match.params.chapterIndex));
   const { data, loading, error } = useQuery(currentChapterQuery, {
-    variables: { mangaId: match.params.mangaId, index: parseInt(match.params.chapterIndex) },
+    variables: { mangaId: match.params.mangaId, index: parseFloat(match.params.chapterIndex) },
   });
 
   if (loading)
@@ -60,7 +60,7 @@ const MangaChapter = ({ match }) => {
       </div>
     );
 
-  if (error) return <pre>{JSON.stringify(match.params, null, 2)}</pre>;
+  if (error) return `${error}`;
 
   return (
     <div className="manga-chapter-wrapper">

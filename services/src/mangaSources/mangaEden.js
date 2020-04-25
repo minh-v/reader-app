@@ -60,7 +60,6 @@ export const fetchChapterWithIndex = ({ mangaId, index }) => {
     //inefficient here transforming all chapters first?
     res = transformChapters(res.data.chapters);
     //search top down since users are likely to read most recent chapter?
-    console.log(res.length);
     for (var i = 0; i < res.length; i++) {
       if (res[i].index === index) {
         return res[i];
