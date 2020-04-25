@@ -59,7 +59,7 @@ const chapterListItem = ({ data, index, style }) => {
     <ListItem
       button
       //links to id-title/chapterId
-      onClick={() => history.push(`/${mangaInfo.id}-${sanitizeTitle(mangaInfo.title)}/${mangaChapters[index].id}`)}
+      onClick={() => history.push(`/${mangaInfo.id}-${sanitizeTitle(mangaInfo.title)}/${mangaChapters[index].index}`)}
       divider
       key={mangaChapters[index].id}
       style={style}

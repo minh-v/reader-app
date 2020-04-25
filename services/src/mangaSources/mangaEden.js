@@ -57,8 +57,15 @@ export const fetchMangaInfo = ({ mangaId }) => {
 
 export const fetchChapterWithIndex = ({ mangaId, index }) => {
   return axios.get(`manga/${mangaId}/`).then((res) => {
+    //inefficient here transforming all chapters first?
     res = transformChapters(res.data.chapters);
-    return res.reverse()[index - 1];
+    //search top down since users are likely to read most recent chapter?
+    console.log(res.length);
+    for (var i = 0; i < res.length; i++) {
+      if (res[i].index === index) {
+        return res[i];
+      }
+    }
   });
 };
 

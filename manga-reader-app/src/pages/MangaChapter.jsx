@@ -20,9 +20,37 @@ const query = gql`
   }
 `;
 
+const navigationQuery = gql`
+  query($mangaId: ID!, $index: Int!) {
+    previousChapter: chapterIndex(mangaId: $mangaId, index: $index) {
+      id
+    }
+
+    nextChapter: chapterIndex(mangaId: $mangaId, index: $index) {
+      id
+    }
+  }
+`;
+
+const currentChapterQuery = gql`
+  query($mangaId: ID!, $index: Int!) {
+    chapterIndex(id: $mangaId, index: $index) {
+      images {
+        url
+        width
+        height
+      }
+    }
+  }
+`;
+
 const MangaChapter = ({ match }) => {
-  const { data, loading, error } = useQuery(query, {
+  /* const { data, loading, error } = useQuery(query, {
     variables: { chapterId: match.params.chapterId },
+  }); */
+
+  const { data, loading, error } = useQuery(currentChapterQuery, {
+    variables: { mangaId: match.params.mangaId, index: parseInt(match.params.chapterIndex) },
   });
 
   if (loading)
@@ -32,11 +60,13 @@ const MangaChapter = ({ match }) => {
       </div>
     );
 
+  if (error) return <pre>{JSON.stringify(match.params, null, 2)}</pre>;
+
   return (
     <div className="manga-chapter-wrapper">
-      {/* <pre>{JSON.stringify(match.params, null, 2)}</pre>
-      <h2>chapter: {match.params.chapterId}</h2> */}
-      {data.chapter.images.reverse().map((image, index) => (
+      {/* <pre>{JSON.stringify(match.params, null, 2)}</pre> */}
+
+      {data.chapterIndex.images.reverse().map((image, index) => (
         <div key={index}>
           <LazyLoad offset={800}>
             <img src={image.url} referrerPolicy="no-referrer" />
