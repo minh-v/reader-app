@@ -42,6 +42,7 @@ const typeDefs = gql`
     chapter(id: ID!): Chapter!
     manga(id: ID!): Manga!
     mangas(searchTitle: String): [Manga!]!
+    chapterIndex(id: ID!, index: Int!): Chapter
   }
 `;
 

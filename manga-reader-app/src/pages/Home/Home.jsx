@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import graphqlClient from "#src/api/graphql";
 import _ from "lodash";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import MangaDetails from "./MangaDetails";
 
 const GETMANGAS = gql`
@@ -20,13 +20,6 @@ const GETMANGAS = gql`
 
 const THROTTLE_TIME = 1000;
 const MIN_QUERY_LENGTH = 3;
-
-//replace all non alphanumerical characters with "-", and replace all "--"" with "-""
-const sanitiseTitle = (title) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "-")
-    .replace(/-{2,}/g, "-");
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,14 +40,6 @@ const Home = () => {
     [setSearchQuery]
   );
 
-  const manga = useHistory();
-  const onSelect = (_event, v) => {
-    /*     const test = v;
-    test.title = sanitiseTitle(test.title);
-    manga.push(`${test.id}-${test.title}`); */
-    setSelectedManga(v);
-  };
-
   //options needs to have a default value
   let options = [];
   if (data) {
@@ -65,7 +50,9 @@ const Home = () => {
       <Search
         onInputChange={(_event, searchQuery) => handleInputChange(searchQuery)}
         data={options}
-        onSelect={onSelect}
+        onSelect={(_event, v) => {
+          setSelectedManga(v);
+        }}
       />
       {selectedManga && <MangaDetails manga={selectedManga} />}
     </div>

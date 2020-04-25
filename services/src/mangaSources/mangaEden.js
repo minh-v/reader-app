@@ -55,6 +55,13 @@ export const fetchMangaInfo = ({ mangaId }) => {
   });
 };
 
+export const fetchChapterWithIndex = ({ mangaId, index }) => {
+  return axios.get(`manga/${mangaId}/`).then((res) => {
+    res = transformChapters(res.data.chapters);
+    return res.reverse()[index - 1];
+  });
+};
+
 export const fetchChapterImages = ({ chapterId }) => {
   return axios.get(`chapter/${chapterId}/`).then((res) => {
     res.data.images = transformImages(res.data.images);

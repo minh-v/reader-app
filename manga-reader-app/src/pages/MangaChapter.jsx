@@ -4,6 +4,8 @@ import { useQuery } from "@apollo/react-hooks";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import LazyLoad from "react-lazyload";
+
 //query the chapter info
 
 const query = gql`
@@ -36,7 +38,9 @@ const MangaChapter = ({ match }) => {
       <h2>chapter: {match.params.chapterId}</h2> */}
       {data.chapter.images.reverse().map((image, index) => (
         <div key={index}>
-          <img src={image.url} referrerPolicy="no-referrer" />
+          <LazyLoad offset={800}>
+            <img src={image.url} referrerPolicy="no-referrer" />
+          </LazyLoad>
         </div>
       ))}
     </div>

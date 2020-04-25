@@ -55,11 +55,10 @@ var MANGA_ID = ""; */
 const chapterListItem = ({ data, index, style }) => {
   const { mangaChapters, mangaInfo } = data;
   const history = useHistory();
-  console.log(mangaChapters[index].id);
   return (
     <ListItem
       button
-      //links to id-title/chapterindex
+      //links to id-title/chapterId
       onClick={() => history.push(`/${mangaInfo.id}-${sanitizeTitle(mangaInfo.title)}/${mangaChapters[index].id}`)}
       divider
       key={mangaChapters[index].id}
@@ -108,15 +107,19 @@ const MangaDetails = ({ manga }) => {
           </CardContent>
         </Card>
         <br />
-        <FixedSizeList
-          height={450}
-          width={500}
-          itemSize={46}
-          itemCount={Object.keys(mangaChapters).length}
-          itemData={{ mangaChapters, mangaInfo }}
-        >
-          {chapterListItem}
-        </FixedSizeList>
+        <Card>
+          <FixedSizeList
+            autoFocus
+            //style={{ backgroundColor: "white" }}
+            height={400}
+            width={475}
+            itemSize={43}
+            itemCount={Object.keys(mangaChapters).length}
+            itemData={{ mangaChapters, mangaInfo }}
+          >
+            {chapterListItem}
+          </FixedSizeList>
+        </Card>
       </div>
     </div>
   );

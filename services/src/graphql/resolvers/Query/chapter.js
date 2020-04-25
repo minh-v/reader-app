@@ -2,8 +2,8 @@
 
 // chapter(id)
 //return obj chapterId for Chapter to use
-const chapteresolver = (context, args) => {
+const chapterResolver = (context, args) => {
   return { id: args.id };
 };
 
-export default chapteresolver;
+export default chapterResolver;
