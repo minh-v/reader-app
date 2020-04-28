@@ -6,6 +6,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import LazyLoadedImage from "#src/components/LazyLoadedImage";
 
+import Button from "@material-ui/core/Button";
+
+import { useHistory } from "react-router-dom";
 //query the chapter info
 
 /* const query = gql`
@@ -44,16 +47,24 @@ const currentChapterQuery = gql`
   }
 `;
 
+/* const chapterNav = () => {
+  const nextChapt = useHistory();
+  history.push(
+    `/${match.params.mangaId}-${match.params.mangaName}/${parseFloat(match.params.chapterIndex) - 1}`
+  )
+}; */
+
 const MangaChapter = ({ match }) => {
   /* const { data, loading, error } = useQuery(query, {
     variables: { chapterId: match.params.chapterId },
   }); */
 
   //const imageRef = useRef();
+  window.scrollTo(10, 10);
   const { data, loading, error } = useQuery(currentChapterQuery, {
     variables: { mangaId: match.params.mangaId, index: parseFloat(match.params.chapterIndex) },
   });
-
+  const history = useHistory();
   if (loading)
     return (
       <div className="loading-wrapper">
@@ -72,6 +83,32 @@ const MangaChapter = ({ match }) => {
           <LazyLoadedImage src={image.url} /* ref={imageRef} */ />
         </div>
       ))}
+      <div className="nav-button-wrapper">
+        <div className="prev-button-wrapper">
+          <Button
+            variant="contained"
+            onClick={() =>
+              history.push(
+                `/${match.params.mangaId}-${match.params.mangaName}/${parseFloat(match.params.chapterIndex) - 1}`
+              )
+            }
+          >
+            Previous Chapter
+          </Button>
+        </div>
+        <div className="next-button-wrapper">
+          <Button
+            variant="contained"
+            onClick={() =>
+              history.push(
+                `/${match.params.mangaId}-${match.params.mangaName}/${parseFloat(match.params.chapterIndex) + 1}`
+              )
+            }
+          >
+            Next Chapter
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

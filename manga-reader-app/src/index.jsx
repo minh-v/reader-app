@@ -8,9 +8,12 @@ import Home from "#src/pages/Home";
 import Manga from "#src/pages/Manga";
 import MangaChapter from "#src/pages/MangaChapter";
 
+import ScrollToTop from "#src/components/ScrollToTop";
+
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./global.less";
+
 /* if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 } */
@@ -31,6 +34,7 @@ const App = () => {
 ReactDOM.render(
   <ApolloProvider client={graphqlClient}>
     <BrowserRouter>
+      <ScrollToTop />
       <App />
     </BrowserRouter>
   </ApolloProvider>,
