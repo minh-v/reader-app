@@ -55,6 +55,7 @@ export const fetchMangaInfo = ({ mangaId }) => {
   });
 };
 
+//fetch chapter info given mangaId and index of chapter
 export const fetchChapterWithIndex = ({ mangaId, index }) => {
   return axios.get(`manga/${mangaId}/`).then((res) => {
     //inefficient here transforming all chapters first?

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import LazyLoad from "react-lazyload";
+import LazyLoadedImage from "#src/components/LazyLoadedImage";
 
 //query the chapter info
 
-const query = gql`
+/* const query = gql`
   query($chapterId: ID!) {
     chapter(id: $chapterId) {
       images {
@@ -18,7 +18,7 @@ const query = gql`
       }
     }
   }
-`;
+`; */
 
 const navigationQuery = gql`
   query($mangaId: ID!, $index: Float!) {
@@ -48,7 +48,8 @@ const MangaChapter = ({ match }) => {
   /* const { data, loading, error } = useQuery(query, {
     variables: { chapterId: match.params.chapterId },
   }); */
-  console.log(parseFloat(match.params.chapterIndex));
+
+  //const imageRef = useRef();
   const { data, loading, error } = useQuery(currentChapterQuery, {
     variables: { mangaId: match.params.mangaId, index: parseFloat(match.params.chapterIndex) },
   });
@@ -63,14 +64,12 @@ const MangaChapter = ({ match }) => {
   if (error) return `${error}`;
 
   return (
-    <div className="manga-chapter-wrapper">
+    <div className="manga-chapter-wrapper" /* ref={imageRef} */>
       {/* <pre>{JSON.stringify(match.params, null, 2)}</pre> */}
 
       {data.chapterIndex.images.reverse().map((image, index) => (
         <div key={index}>
-          <LazyLoad offset={800}>
-            <img src={image.url} referrerPolicy="no-referrer" />
-          </LazyLoad>
+          <LazyLoadedImage src={image.url} /* ref={imageRef} */ />
         </div>
       ))}
     </div>
