@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -47,10 +47,6 @@ const sanitizeTitle = (title) =>
     .replace(/[^a-z0-9]/g, "-")
     .replace(/-{2,}/g, "-");
 
-//ugly global variables?
-/* var MANGA_TITLE = "";
-var MANGA_ID = ""; */
-
 //each item in chapter list
 const chapterListItem = ({ data, index, style }) => {
   const { mangaChapters, mangaInfo } = data;
@@ -71,8 +67,6 @@ const chapterListItem = ({ data, index, style }) => {
 
 const MangaDetails = ({ manga }) => {
   //const classes = useStyles();
-  /*   MANGA_TITLE = manga.title;
-  MANGA_ID = manga.id; */
   const mangaInfo = {
     id: manga.id,
     title: manga.title,
@@ -88,6 +82,8 @@ const MangaDetails = ({ manga }) => {
       </div>
     );
 
+  //potential bug here, figure out how to fix
+  //sometimes this line can be run before data has finished returning
   const mangaChapters = data.manga.info.chapters;
 
   return (
@@ -110,7 +106,6 @@ const MangaDetails = ({ manga }) => {
         <Card>
           <FixedSizeList
             autoFocus
-            //style={{ backgroundColor: "white" }}
             height={400}
             width={475}
             itemSize={43}

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -9,6 +9,9 @@ import LazyLoadedImage from "#src/components/LazyLoadedImage";
 import Button from "@material-ui/core/Button";
 
 import { useHistory } from "react-router-dom";
+
+import { Link } from "react-router-dom";
+import ScrollToTop from "#src/components/ScrollToTop";
 //query the chapter info
 
 /* const query = gql`
@@ -60,11 +63,20 @@ const MangaChapter = ({ match }) => {
   }); */
 
   //const imageRef = useRef();
-  window.scrollTo(10, 10);
+
   const { data, loading, error } = useQuery(currentChapterQuery, {
     variables: { mangaId: match.params.mangaId, index: parseFloat(match.params.chapterIndex) },
   });
   const history = useHistory();
+
+  function ScrollToTopOnMount() {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+    return null;
+  }
+
   if (loading)
     return (
       <div className="loading-wrapper">
@@ -74,9 +86,12 @@ const MangaChapter = ({ match }) => {
 
   if (error) return `${error}`;
 
+  //const nextLink = `/${match.params.mangaId}-${match.params.mangaName}/${parseFloat(match.params.chapterIndex) + 1}`;
+
   return (
     <div className="manga-chapter-wrapper" /* ref={imageRef} */>
       {/* <pre>{JSON.stringify(match.params, null, 2)}</pre> */}
+      <ScrollToTopOnMount />
 
       {data.chapterIndex.images.reverse().map((image, index) => (
         <div key={index}>

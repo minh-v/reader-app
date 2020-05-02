@@ -34,7 +34,7 @@ const App = () => {
 ReactDOM.render(
   <ApolloProvider client={graphqlClient}>
     <BrowserRouter>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <App />
     </BrowserRouter>
   </ApolloProvider>,
